@@ -60,8 +60,18 @@ app.get("/movies/search", async (req, res) => {
     res.json(simplifiedResults);
 });
 
+app.get("/movies/odd_one_out", async (req, res) => {
+    const database = mongoClient.db("sample_mflix");
+    const movies = database.collection("movies");
+
+    const oddOneOut = await movies.findOne({ title: "breakdancing" });
+
+    res.json(oddOneOut);
+});
+
 //e.g. /movies/573a1398f29313caabce9682
 app.get("/movies/:id", async (req, res) => {
+    console.log(req.url, req.path);
     const database = mongoClient.db("sample_mflix");
     const movies = database.collection("movies");
 
